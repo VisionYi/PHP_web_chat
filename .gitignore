@@ -46,5 +46,9 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
-# 這是現測試用
+# 這是其他的library框架
 web_app/public/lib/
+
+# 這是sumbile_text3 的專案設定檔
+mvc_PHP.sublime-project
+mvc_PHP.sublime-workspace
