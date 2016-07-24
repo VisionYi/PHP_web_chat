@@ -1,0 +1,19 @@
+<h3 ng-init="E_ctrl.init();">修改資料 Edit the file</h3>
+<form role="form" ng-submit="E_ctrl.edit(E_ctrl.friend)">
+    <div class="form-group">
+        <label>Name:</label>
+        <input type="text" class="form-control" placeholder="{{E_ctrl.friend.name}}" readonly/>
+    </div>
+    <div class="form-group">
+        <label>Age:</label>
+        <input type="number" class="form-control" ng-model="E_ctrl.friend.age" />
+    </div>
+    <div class="form-group">
+        <label>Skills:</label>
+        <input type="text" class="form-control" ng-model="E_ctrl.friend.skills" />
+    </div>
+    <div class="form-group">
+        <a href="#/" class="btn btn-default">取消</a>
+        <button type="submit" class="btn btn-primary">新增修改</button>
+    </div>
+</form>

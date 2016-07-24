@@ -1,0 +1,143 @@
+body {
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+h1,h2,h3,h4,h5,h6,div,p,span{
+    font-family: 微軟正黑體;
+}
+
+a {
+    cursor: pointer;
+}
+
+footer {
+    background-color: #333;
+}
+
+footer:before {
+    content: "";
+    display: block;
+    height: 4px;
+    background: #317EAC;
+    margin-bottom: 2px;
+}
+
+footer .ss-footer-textcolor >a {
+    color: #ACDDFA;
+    line-height: 1.5;
+}
+
+footer .ss-footer-textcolor > a:hover{
+    color: white;
+    text-decoration: none;
+}
+
+/* 如果驗證未通過，呈現紅框 */
+
+input.ng-invalid {
+    border:1px solid red;
+}
+
+/* 如果驗證通過，呈現綠框 */
+
+input.ng-valid {
+    border:1px solid green;
+}
+
+/* 如果已經被輸入過且驗證失敗，加入粉紅色背景 */
+
+input.ng-dirty.ng-invalid {
+    background: #ffecec;
+}
+
+.error{
+   color:red;
+}
+
+.text-vertical-center {
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+}
+
+/*  Self  */
+
+.ss-profile-pic{
+    border: 1px solid #dddddd;
+    height: 25px;
+    width: 25px;
+}
+
+.ss-cropArea {
+    background: #E4E4E4;
+    overflow: hidden;
+    width: 500px;
+    height: 350px;
+    margin: 20px 0;
+}
+
+.ss-shadow-no-bottom {
+    margin-bottom: 0;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, .175);
+}
+
+.ss-ver-divider {
+    width: 1px;
+    height: 20px;
+    margin: 9px 0;
+    background-color: #ddd;
+}
+
+@media (max-width: 768px) {
+    .ss-ver-divider {
+        width: 0;
+        height: 1px;
+        margin: 0 0;
+    }
+}
+
+.ss-big-title{
+    font-size: 56px;
+    font-weight: 700;
+}
+
+.ss-page-content{
+    padding: 20px 0;
+}
+
+.ss-img-center-look{
+    margin: 15px auto;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.ss-img-center-look:hover{
+    opacity: 0.7;
+}
+
+/* .ss-cover{
+    position: absolute;
+    top: 0;
+    left: 0;
+} */
+
+.ss-btn-hover:hover{
+    border: 1.5px solid #dddddd;
+    font-weight: 700;
+}
+
+.ss-navbar{
+    min-height: 40px;
+}
+
+.ss-navbar a{
+    padding: 9px 15px !important ;
+    height: 39px;
+}
+

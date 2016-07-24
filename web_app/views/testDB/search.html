@@ -1,0 +1,57 @@
+<div class="row">
+    <div class="col-xs-12 col-sm-3 ">
+        <form class="form-horizontal" role="form">
+            <div class="form-group">
+                <label>All Search:</label>
+                <input type="text" class="form-control" ng-model="S_ctrl.search" />
+            </div>
+            <div class="form-group">
+                <label>Name:</label>
+                <input type="text" class="form-control" ng-model="S_ctrl.search.name" />
+            </div>
+            <div class="form-group">
+                <label>Skills:</label>
+                <input type="text" class="form-control" ng-model="S_ctrl.search.skills" />
+            </div>
+            <div class="form-group">
+                <label>Limit amounts(負值會從後面取):</label>
+                <input type="number" class="form-control" ng-model="S_ctrl.number" />
+            </div>
+            <div class="text-right">
+                <a class="btn btn-primary" href="#/add">新增</a>
+            </div>
+        </form>
+    </div>
+
+    <div class="col-xs-12 col-sm-9 " ng-init="S_ctrl.init();">
+        <h3><i class="fa fa-table text-primary"></i> 測試資料表</h3>
+        <div ng-show="S_ctrl.isload" style="text-align: center;">
+            <i class="fa fa-spinner fa-pulse fa-5x text-primary"></i> Loading...
+        </div>
+
+        <table ng-hide="S_ctrl.isload" class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th ng-click="S_ctrl.orderBy($index)">編號 <i class="{{S_ctrl.caret}}"></i></th>
+                    <th ng-click="S_ctrl.orderBy('name')">Name</th>
+                    <th ng-click="S_ctrl.orderBy('age')">Age</th>
+                    <th ng-click="S_ctrl.orderBy('skills')">Skills</th>
+                    <th>operate</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="friend in S_ctrl.friends | filter:S_ctrl.search | orderBy:S_ctrl.order_by:S_ctrl.reverse | limitTo:S_ctrl.number">
+                    <td>{{ friend.id }}</td>
+                    <td>{{ friend.name }}</td>
+                    <td>{{ friend.age }}</td>
+                    <td>{{ friend.skills }}</td>
+                    <td>
+                        <a ng-href="/TestDB#/edit/{{friend.id}}"><b>Edit</b></a>
+                        &nbsp;
+                        <a href="" ng-click="S_ctrl.delete(friend)"><b>Delete</b></a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

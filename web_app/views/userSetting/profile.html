@@ -1,0 +1,79 @@
+<div id="Profile" ng-cloak>
+    <div class="panel panel-default">
+        <div class="panel-heading"><h4><b>個人資料修改</b></h4></div>
+        <div class="panel-body" ng-init="P_ctrl.init()">
+            <form class="form-horizontal" name="RForm" role="form" novalidate>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">大頭貼</label>
+                    <div class="col-sm-3">
+                        <img ng-src="{{P_ctrl.member.profile_picture}}" alt="大頭貼" style="height: 100px; width: 100px;">
+                    </div>
+                    <div class="col-sm-2">
+                        <a href="#/p_pictice" class="btn btn-primary">修改頭貼</a>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">電子信箱</label>
+                    <div class="col-sm-5">
+                        <input type="email" name="email" class="form-control" ng-model="P_ctrl.member.email" readonly/>
+                    </div>
+                </div>
+                <hr>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">修改密碼</label>
+                    <div class="col-sm-5">
+                        <input type="password" name="password" class="form-control" ng-model="P_ctrl.member.password" ng-minlength="6" ng-maxlength="16"/>
+                        <i class="text-muted">※請輸入6~16位的英文或數字</i>
+                    </div>
+                    <div class="col-sm-4 error" ng-messages="RForm.password.$error" ng-show="RForm.password.$dirty">
+                        <p ng-message="minlength">至少6碼</p>
+                        <p ng-message="maxlength">最多16碼</p>
+                    </div>
+                </div>
+                <hr>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">暱稱</label>
+                    <div class="col-sm-5">
+                        <input type="text" name="nickname" class="form-control" ng-model="P_ctrl.member.nickname" ng-maxlength="32" required/>
+                        <i class="text-muted">※最多32字元,可輸入中文</i>
+                    </div>
+                    <div class="col-sm-4 error" ng-messages="RForm.nickname.$error" ng-show="RForm.nickname.$dirty">
+                        <p ng-message="required">此欄為必填</p>
+                        <p ng-message="maxlength">最多32碼</p>
+                    </div>
+                </div>
+                <hr>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">行動電話</label>
+                    <div class="col-sm-5">
+                        <input type="text" name="phone" class="form-control" ng-model="P_ctrl.member.phone" ng-maxlength="10" ng-pattern="/^[0][9][0-9]{8}$/" required/>
+                        <i class="text-muted">範例: 0911223366</i>
+                    </div>
+                    <div class="col-sm-4 error" ng-messages="RForm.phone.$error" ng-show="RForm.phone.$dirty">
+                        <p ng-message="required">此欄為必填</p>
+                        <p ng-message="maxlength">最多10碼</p>
+                        <p ng-message="pattern">無效的電話號碼</p>
+                    </div>
+                </div>
+                <hr>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">出生日期</label>
+                    <div class="col-sm-5">
+                        <input type="text" name="birthday" class="form-control" ng-model="P_ctrl.member.birthday" ng-pattern="/^\d{4}-[0-1]\d-[0-3]\d$/" required/>
+                        <i class="text-muted">範例: 2016-02-01</i>
+                    </div>
+                    <div class="col-sm-4 error" ng-messages="RForm.birthday.$error" ng-show="RForm.birthday.$dirty">
+                        <p ng-message="required">此欄為必填</p>
+                        <p ng-message="pattern">請輸入日期格式</p>
+                    </div>
+                </div>
+                <hr>
+                <div class="form-group">
+                    <div class="col-sm-10 col-sm-offset-2">
+                        <button class="btn btn-primary" ng-disabled="RForm.$invalid" ng-click="P_ctrl.update(P_ctrl.member)">更新資料</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

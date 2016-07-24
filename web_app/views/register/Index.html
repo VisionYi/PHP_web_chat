@@ -1,0 +1,108 @@
+<div id="Register" ng-app="RegisterApp" ng-cloak>
+    <div class="container-fluid" ng-controller="RegisterCtrl as R_ctrl">
+        <div class="row">
+            <div class="col-xs-10 col-sm-6 col-sm-offset-2">
+                <h3><b>註冊 新成員帳戶</b></h3>
+                <hr>
+                <form class="form-horizontal well" name="RForm" role="form" ng-submit="R_ctrl.add(R_ctrl.member)" novalidate>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">電子信箱</label>
+                        <div class="col-sm-6">
+                            <input type="email" name="email" class="form-control" ng-model="R_ctrl.member.email" ng-maxlength="64" autofocus required/>
+                            <p class="text-muted"><i>※即為登入帳戶,之後將不能修改</i></p>
+                            <i class="text-muted">範例: aaa123@gmail.com</i>
+                        </div>
+                        <div class="col-sm-4 error" ng-messages="RForm.email.$error" ng-show="RForm.email.$dirty || RForm.$submitted">
+                            <p ng-message="required">此欄為必填</p>
+                            <p ng-message="maxlength">最多64碼</p>
+                            <p ng-message="email">請輸入E-mail格式</p>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">密碼</label>
+                        <div class="col-sm-6">
+                            <input type="password" name="password" class="form-control" ng-model="R_ctrl.member.password" ng-minlength="6" ng-maxlength="16" required/>
+                            <i class="text-muted">※請輸入6~16位的英文或數字</i>
+                        </div>
+                        <div class="col-sm-4 error" ng-messages="RForm.password.$error" ng-show="RForm.password.$dirty || RForm.$submitted">
+                            <p ng-message="required">此欄為必填</p>
+                            <p ng-message="minlength">至少6碼</p>
+                            <p ng-message="maxlength">最多16碼</p>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">暱稱</label>
+                        <div class="col-sm-6">
+                            <input type="text" name="nickname" class="form-control" ng-model="R_ctrl.member.nickname" ng-maxlength="32" required/>
+                            <i class="text-muted">※最多32字元,可輸入中文</i>
+                        </div>
+                        <div class="col-sm-4 error" ng-messages="RForm.nickname.$error" ng-show="RForm.nickname.$dirty || RForm.$submitted">
+                            <p ng-message="required">此欄為必填</p>
+                            <p ng-message="maxlength">最多32碼</p>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">行動電話</label>
+                        <div class="col-sm-6">
+                            <input type="text" name="phone" class="form-control" ng-model="R_ctrl.member.phone" ng-maxlength="10" ng-pattern="/^[0][9][0-9]{8}$/" required/>
+                            <i class="text-muted">範例: 0911223366</i>
+                        </div>
+                        <div class="col-sm-4 error" ng-messages="RForm.phone.$error" ng-show="RForm.phone.$dirty || RForm.$submitted">
+                            <p ng-message="required">此欄為必填</p>
+                            <p ng-message="maxlength">最多10碼</p>
+                            <p ng-message="pattern">無效的電話號碼</p>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">出生日期</label>
+                        <div class="col-sm-6">
+                            <input type="date" name="birthday" class="form-control" ng-model="R_ctrl.member.birthday" required/>
+                        </div>
+                        <div class="col-sm-4 error" ng-messages="RForm.birthday.$error" ng-show="RForm.birthday.$dirty || RForm.$submitted">
+                            <p ng-message="required">此欄為必填</p>
+                            <p ng-message="date">請輸入日期格式</p>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="form-group">
+                        <div class="col-sm-10 col-sm-offset-2">
+                            <input type="checkbox" name="agree" ng-model="R_ctrl.agree" required />
+                            <a data-toggle="modal" data-target="#agreement">申請同意說明書</a>
+                            <p class="error" ng-show="RForm.agree.$error.required && RForm.$submitted" >請勾選!!!</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-10 col-sm-offset-2">
+                            <a href="/home" class="btn btn-default">取消</a>
+                            &nbsp;
+                            <button type="submit" class="btn btn-primary" ng-disabled="RForm.$invalid && RForm.$submitted">註冊確定</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="agreement" aria-hidden="true" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title text-primary"><b>註冊同意書</b></h4>
+      </div>
+      <div class="modal-body">
+        <br><br>
+        <p>同意書內容</p>
+        <br><br>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

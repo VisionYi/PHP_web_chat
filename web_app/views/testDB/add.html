@@ -1,0 +1,19 @@
+<h3>新增資料 Add the file </h3>
+<form role="form" ng-submit="A_ctrl.add(A_ctrl.friend)">
+    <div class="form-group">
+        <label>Name:</label>
+        <input type="text" class="form-control" ng-model="A_ctrl.friend.name" required />
+    </div>
+    <div class="form-group">
+        <label>Age:</label>
+        <input type="number" class="form-control" ng-model="A_ctrl.friend.age" required />
+    </div>
+    <div class="form-group">
+        <label>Skills:</label>
+        <input type="text" class="form-control" ng-model="A_ctrl.friend.skills" required />
+    </div>
+    <div class="form-group">
+        <a href="#/" class="btn btn-default">取消</a>
+        <button type="submit" class="btn btn-primary">新增確定</button>
+    </div>
+</form>
