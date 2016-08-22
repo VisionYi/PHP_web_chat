@@ -55,7 +55,7 @@ class MyPDO {
 		return $insertId;
 	}
 
-	public function bindUpdate($table='', array $data=[], $id) {
+	public function bindUpdate($table="", array $data=[], $whereClause="") {
 		$this->_data = $data;
 		$bind_temp = [];
 		$bind_data = [];
@@ -64,12 +64,12 @@ class MyPDO {
 			$bind_data[":$key"] = $value;
 		}
 
-		$sql = "UPDATE $table SET " . implode(',', $bind_temp) . " WHERE id=$id";
+		$sql = "UPDATE $table SET " . implode(',', $bind_temp) . " WHERE {$whereClause} ";
 		$this->_prepare_bind($sql, $bind_data);
 	}
 
-	public function delete($table='' ,$id) {
-		$sql = "DELETE FROM $table WHERE id=$id";
+	public function dbDelete($table='' ,$whereClause="") {
+		$sql = "DELETE FROM $table WHERE {$whereClause}";
 		$this->pdo->exec($sql);
 	}
 
@@ -80,9 +80,12 @@ class MyPDO {
 		}
 	}
 
-	public function getCount($table='') {
-		$count = $this->bindQuery("SELECT count(*) FROM $table");
-		return $count[0]['count(*)'];
+	public function getTotal($records=[]) {
+		$total = $this->bindQuery("SELECT found_rows()")[0]['found_rows()'];
+		if($total < count($records)){
+			$total = count($records);
+		}
+		return $total;
 	}
 
 	public function closeDB(){

@@ -66,6 +66,7 @@ app.controller('EditCtrl',['$routeParams','dataFactory','$location',function($ro
                 data.age = parseInt(data.age);
                 self.friend = data;
             }).error(function(err) {
+                console.log(err);
                 alert("資料庫載入失敗!\n" + err);
             });
     };

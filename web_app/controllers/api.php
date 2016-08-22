@@ -28,7 +28,8 @@ class Api extends DB_Api {
 			$this->output($result);
 		} else {
 			$result = $this->DB->bindQuery("SELECT * FROM $table WHERE id=$id");
-			$this->output($result[0]);
+            $this->output($result[0]);
+            // var_dump($result);
 		}
 
         if(isset($_POST['test'])){
@@ -56,12 +57,12 @@ class Api extends DB_Api {
 			$Ses->Create_variable(['nickname' => $data['nickname']]);
 		}
 
-		$this->DB->bindUpdate($table, $data, $data['id']);
+		$this->DB->bindUpdate($table, $data, "id = {$data['id']}");
 		$this->output(['code' => 1]);
 	}
 
 	public function Delete($table = '', $id = '') {
-		$this->DB->delete($table, $id);
+		$this->DB->dbDelete($table, "id={$id}");
 		$this->output(['code' => 1]);
 	}
 	public function Register($table = '') {
@@ -95,8 +96,9 @@ class Api extends DB_Api {
         }
 
         if ($is_conform) {
+            $where = "id = {$result['id']}";
             // 更新登入最後時間
-            $this->DB->bindUpdate($table, ['last_datetime' => $data['last_datetime']], $result['id']);
+            $this->DB->bindUpdate($table, ['last_datetime' => $data['last_datetime']], $where);
 
 			require_once 'session/libs/Session.php';
 			$Ses = new Session();
@@ -148,11 +150,12 @@ class Api extends DB_Api {
             $file_path = $file->saveFile(NULL, $data['save_path']);
         }
 
-		$this->DB->bindUpdate($table, [$data['save_name'] => "/$file_path"], $id);
+		$this->DB->bindUpdate($table, [$data['save_name'] => "/$file_path"],"id = {$id}");
         $this->output(['code' => 1]);
 
-        if($id == 'session_id')
+        if($id == 'session_id'){
             $Ses->Create_variable([$data['save_name'] => "/$file_path"]);
+        }
 
         unset($file_path);
         unset($fileName);

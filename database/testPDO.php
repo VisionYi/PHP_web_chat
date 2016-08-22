@@ -43,7 +43,7 @@
 //         'age'  => '1000',
 //         'skills' => 'database U'
 // ];
-// $mypdo->bindUpdate($table ,$select ,19);
+// $mypdo->bindUpdate($table ,$select ,"id = 19");
 
 // $mypdo->showError();
 // $mypdo->stmt = null;
