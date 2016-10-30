@@ -10,7 +10,8 @@
     - 應該也不會再更新了，但MySQL的資料還會繼續保留
     - 以下放入作品網站截圖回憶一下
 
-## Images of the work
+## Screenshot
+- 作品截圖
 
 ![main_HomePage][image-1]
 
