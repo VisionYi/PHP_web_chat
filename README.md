@@ -10,7 +10,7 @@
     - 應該也不會再更新了，但MySQL的資料還會繼續保留
     - 以下放入作品網站截圖回憶一下
 
-## Works Of Images
+## Images of the work
 
 ![main_HomePage][image-1]
 
