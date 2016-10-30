@@ -1,5 +1,5 @@
 
-app.controller('SearchCtrl',['$route','dataFactory',function($route,dataFactory){
+app.controller('SearchCtrl',['$route','dataFactory','$http',function($route,dataFactory,$http) {
     var self = this;
     document.title = 'TestDB查詢資料';
 
@@ -7,14 +7,23 @@ app.controller('SearchCtrl',['$route','dataFactory',function($route,dataFactory)
         self.caret = 'fa fa-caret-down';
         self.reverse = true;
         self.isload = true;
-        dataFactory.getAllData('pdotest')
-            .success(function(data) {
+        // dataFactory.getAllData('pdotest')
+        //     .success(function(data) {
+        //         self.isload = false;
+        //         self.friends = data;
+        //         self.number = data.length;
+        //     }).error(function(error) {
+        //         alert("資料庫載入失敗!\n" + error);
+        //     });
+        $http.get('/api/Get/pdotest' )
+            .success(function (data, status, header, config) {
                 self.isload = false;
                 self.friends = data;
                 self.number = data.length;
-                // console.log(self.friends);
-            }).error(function(error) {
-                alert("資料庫載入失敗!\n" + error);
+                console.log(data);
+            })
+            .error(function (data, status, header, config) {
+                console.error(data);
             });
     };
 

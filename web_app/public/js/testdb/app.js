@@ -22,3 +22,6 @@ app.config(['$routeProvider',function($routeProvider) {
         });
 }]);
 
+app.run(['$route', function($route)  {
+  $route.reload();
+}]);

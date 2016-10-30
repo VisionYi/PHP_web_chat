@@ -1,6 +1,6 @@
-var app = angular.module('UserSettingApp', ['ngRoute' ,'ngMessages','ngFileUpload', 'ngImgCrop']);
+var UserSettingApp = angular.module('UserSettingApp', ['ngRoute' ,'ngMessages','ngFileUpload', 'ngImgCrop']);
 
-app.config(['$routeProvider',function($routeProvider) {
+UserSettingApp.config(['$routeProvider',function($routeProvider) {
     var View_urlBace = 'web_app/views/userSetting/';
     $routeProvider
         .when('/profile', {
@@ -15,4 +15,9 @@ app.config(['$routeProvider',function($routeProvider) {
         }).otherwise({
             redirectTo: '/profile'
         });
+        // $locationProvider.html5Mode(true);
+}]);
+
+UserSettingApp.run(['$route', function($route)  {
+  $route.reload();
 }]);

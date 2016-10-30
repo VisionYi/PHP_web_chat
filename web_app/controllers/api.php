@@ -5,41 +5,46 @@ class Api extends DB_Api {
 
 	private $DB;
 
-	function __construct() {
-		require_once 'database/libs/MyPDO.php';
-		$this->DB = new MyPDO();
-	}
-	function __destruct() {
-		$this->DB->closeDB();
-		exit();
-	}
+    function __construct() {
+        require_once 'database/libs/MyPDO.php';
+        $this->DB = new MyPDO();
+        // $this->DB->debugDB_SQL = true;
 
-	public function Get($table = '', $id = '') {
-		if ($id == 'session_id') {
-			require_once 'session/libs/Session.php';
-			$Ses = new Session();
-			$id = $Ses->get_var('id');            // 已存在session['id']
+        ob_start();
+    }
 
-			$result = $this->DB->bindQuery("SELECT * FROM $table WHERE id=$id");
-			$this->output($result[0]);
+    function __destruct() {
+        $this->DB->closeDB();
+        // $this->check_json_error_log();
+        // $this->check_json_error_header(500, "Internal Server Error!!");
 
-		} else if ($id == '') {
-			$result = $this->DB->bindQuery("SELECT * FROM $table");
-			$this->output($result);
-		} else {
-			$result = $this->DB->bindQuery("SELECT * FROM $table WHERE id=$id");
+        // ob_end_clean();
+        exit();
+    }
+
+    public function Get($table = '', $id = '') {
+        if ($id == 'session_id') {
+            require_once 'session/libs/Session.php';
+            $Ses = new Session();
+            $id = $Ses->get_var('id');            // 已存在session['id']
+
+            $result = $this->DB->dbQuery("SELECT * FROM $table WHERE id=$id");
             $this->output($result[0]);
-            // var_dump($result);
-		}
 
-        if(isset($_POST['test'])){
-            echo '<br>'.$_POST['test'];
+        } else if ($id == '') {
+            $result = $this->DB->dbQuery("SELECT * FROM $table ");
+
+            // var_dump($result);
+            $this->output($result);
+        } else {
+            $result = $this->DB->dbQuery("SELECT * FROM $table WHERE id=$id");
+            $this->output($result[0]);
         }
-	}
+    }
 
 	public function Add($table = '') {
 		$data = $this->get_postData();
-		$lastId = $this->DB->bindInsert($table, $data);
+		$lastId = $this->DB->dbInsert($table, $data);
 
 		$this->output(['code' => 1, 'lastId' => $lastId]);
 	}
@@ -57,7 +62,7 @@ class Api extends DB_Api {
 			$Ses->Create_variable(['nickname' => $data['nickname']]);
 		}
 
-		$this->DB->bindUpdate($table, $data, "id = {$data['id']}");
+		$this->DB->dbUpdate($table, $data, "id = {$data['id']}");
 		$this->output(['code' => 1]);
 	}
 
@@ -67,13 +72,13 @@ class Api extends DB_Api {
 	}
 	public function Register($table = '') {
 		$data = $this->get_postData();
-		$isRepeat = $this->DB->bindQuery("SELECT id FROM $table WHERE email=:_email", [':_email' => $data['email']]);
+		$isRepeat = $this->DB->dbQuery("SELECT id FROM $table WHERE email=:_email", [':_email' => $data['email']]);
 
 		if (empty($isRepeat)) {
 			$data['password'] = password_hash($data['password'] ,PASSWORD_BCRYPT);
 			// 預設頭貼
 			$data['profile_picture'] = "/web_app/public/uploadFiles/profile_picture-0.jpg";
-			$lastId = $this->DB->bindInsert($table, $data);
+			$lastId = $this->DB->dbInsert($table, $data);
 			$this->output(['code' => 1, 'lastId' => $lastId]);
 		} else {
 			$this->output(['code' => 0, 'error' => "帳號已重複!!"]);
@@ -85,7 +90,7 @@ class Api extends DB_Api {
 		$data = $this->get_postData();
 
 		$sql = "SELECT * FROM $table WHERE email=:_email";
-		$result = $this->DB->bindQuery($sql, [':_email' => $data['email']]);
+		$result = $this->DB->dbQuery($sql, [':_email' => $data['email']]);
 
         if(!empty($result)){
             $result = $result[0];
@@ -98,7 +103,7 @@ class Api extends DB_Api {
         if ($is_conform) {
             $where = "id = {$result['id']}";
             // 更新登入最後時間
-            $this->DB->bindUpdate($table, ['last_datetime' => $data['last_datetime']], $where);
+            $this->DB->dbUpdate($table, ['last_datetime' => $data['last_datetime']], $where);
 
 			require_once 'session/libs/Session.php';
 			$Ses = new Session();
@@ -118,7 +123,7 @@ class Api extends DB_Api {
 	public function AutoLogin($table = '') {
         $password = $_COOKIE['password'];
         // sql語句要加引號~函式庫需要做偵測錯誤
-        $result=$this->DB->bindQuery("SELECT * FROM $table WHERE password='$password'");
+        $result=$this->DB->dbQuery("SELECT * FROM $table WHERE password='$password'");
 
         require_once 'session/libs/Session.php';
         $Ses = new Session();
@@ -150,7 +155,7 @@ class Api extends DB_Api {
             $file_path = $file->saveFile(NULL, $data['save_path']);
         }
 
-		$this->DB->bindUpdate($table, [$data['save_name'] => "/$file_path"],"id = {$id}");
+		$this->DB->dbUpdate($table, [$data['save_name'] => "/$file_path"],"id = {$id}");
         $this->output(['code' => 1]);
 
         if($id == 'session_id'){

@@ -1,4 +1,4 @@
-app.controller('ProfileCtrl', ['$http','$filter', function($http,$filter){
+UserSettingApp.controller('ProfileCtrl', ['$http','$filter', function($http,$filter){
     var self = this;
     self.init = function() {
         $http.get('/api/Get/member/session_id')
@@ -15,10 +15,10 @@ app.controller('ProfileCtrl', ['$http','$filter', function($http,$filter){
         if(data.password === ''){
             delete data.password;
         }
-        console.log(data);
         $http.post('/api/Update/member', data)
             .success(function(response) {
                 if(response.code) alert('修改成功');
+                window.location.reload();
             }).error(function(err) {
                 alert("資料庫載入失敗!\n" + err);
             });
@@ -26,7 +26,7 @@ app.controller('ProfileCtrl', ['$http','$filter', function($http,$filter){
 }]);
 
 
-app.controller('P_pictureCtrl', ['Upload', function(Upload){
+UserSettingApp.controller('P_pictureCtrl', ['Upload', function(Upload){
     var self = this;
     self.pictureFile = '';
     self.croppedImageUrl = '';
@@ -53,7 +53,7 @@ app.controller('P_pictureCtrl', ['Upload', function(Upload){
         }).success(function(response) {
             if (response.code) {
                 alert("頭貼設置成功!");
-                window.location.reload(true);
+                window.location.reload();
                 window.location.href = '/userSetting#/profile';
             }
         }).error(function(error) {

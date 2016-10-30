@@ -1,10 +1,10 @@
 <?php
 
-$password = 'abc123' ;
+$password = 'adminAA' ;
 $hash = password_hash($password ,PASSWORD_BCRYPT);
 echo  $hash .'<br>';
 
-$res = password_verify( 'abc123' , $hash );
+$res = password_verify( 'adminAA' , $hash );
 if($res)
 var_dump( $res );
 
