@@ -121,9 +121,9 @@ class Api extends DB_Api {
 	}
 
 	public function AutoLogin($table = '') {
-        $password = $_COOKIE['password'];
-        // sql語句要加引號~函式庫需要做偵測錯誤
-        $result=$this->DB->dbQuery("SELECT * FROM $table WHERE password='$password'");
+        $password = isset($_COOKIE['password']) ? trim($_COOKIE['password']): '';
+        $sql = "SELECT * FROM $table WHERE password=:password";
+        $result = $this->DB->dbQuery($sql,[ ':password' => $password]);
 
         require_once 'session/libs/Session.php';
         $Ses = new Session();
