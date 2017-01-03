@@ -13,7 +13,7 @@ app.controller('SearchCtrl',['$route','dataFactory',function($route,dataFactory)
                 self.friends = data;
                 self.number = data.length;
             }).error(function(error) {
-                alert("資料庫載入失敗!\n" + error);
+                // alert("資料庫載入失敗!\n" + error);
             });
     };
 
