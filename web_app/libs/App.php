@@ -18,16 +18,17 @@ class App {
 	 */
 	function __construct() {
 		$url = $this->parseUrl();
+		$error = new _Error();
 
 		if (isset($url[0])) {
 			if (file_exists(ROOT_PATH . '/controllers/' . $url[0] . '.php')) {
 				$this->controller = $url[0];
 				unset($url[0]);
 			} else {
-				new _Error($url[0] ,1);
+				$error->page404($url[0] ,1);
 			}
 		} else if (!file_exists(ROOT_PATH . '/controllers/' . $this->controller . '.php')) {
-			new _Error($this->controller ,1);
+			$error->page404($this->controller ,1);
 		}
 
 		require_once ROOT_PATH . '/controllers/' . $this->controller . '.php';
@@ -39,10 +40,10 @@ class App {
 				$this->method = $url[1];
 				unset($url[1]);
 			} else {
-				new _Error($url[1] ,2);
+				$error->page404($url[1] ,2);
 			}
 		} else if (!method_exists($this->controller, $this->method)) {
-			new _Error($this->method ,2);
+			$error->page404($this->method ,2);
 		}
 
 		$this->params = $url ? array_values($url) : [];

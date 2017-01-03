@@ -51,7 +51,9 @@ LoginApp.controller('LoginCtrl', ['$http','$filter','$cookies', function($http,$
         expire.setSeconds(expire.getSeconds() + time);
 
         for(var key in cookies_object){
-            $cookies.put(key,cookies_object[key], {'expires': expire});
+            if (cookies_object.hasOwnProperty(key)) {
+                $cookies.put(key,cookies_object[key], {'expires': expire});
+            }
         }
     };
 }]);

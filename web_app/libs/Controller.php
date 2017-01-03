@@ -16,7 +16,8 @@ class Controller {
 			require_once ROOT_PATH . '/models/' . $model . '.php';
 			return new $model();
 		} else {
-			new _Error($model, 3);
+			$error = new _Error();
+			$error->page404($model, 3);
 		}
 	}
 
@@ -31,7 +32,8 @@ class Controller {
 	 */
 	public function View($view = '', $layout = '', array $var_data = []) {
 		if (!file_exists(ROOT_PATH . '/views/' . $view)) {
-			new _Error($view, 4);
+			$error = new _Error();
+			$error->page404($view, 4);
 		}
 
 		$this->_var_data = $var_data;

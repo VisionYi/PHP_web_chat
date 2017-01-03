@@ -1,8 +1,3 @@
-var statusArr = new Array(24,25,26,27);
-if(statusArr.indexOf(24)!=-1){
-    console.log("24 存在 yes!!\n27位於: 第" + statusArr.indexOf(27)+"位");
-}
-
 
 // /* Search query & Delete*/
 // app.controller('SearchCtrl', ['$http','$route', function($http,$route) {
@@ -25,7 +20,6 @@ if(statusArr.indexOf(24)!=-1){
 //     };
 //     $http.get('database/getAllData.php')
 //     .success(function(data) {
-//         // console.log(data);
 //         self.friends = data;
 //         self.number = data.length;
 //     });
@@ -43,7 +37,6 @@ if(statusArr.indexOf(24)!=-1){
 //             }
 //         }).error(function(err) {
 //             alert("失敗!\n" + err);
-//             console.log(err);
 //         });
 //     };
 // }]);
@@ -56,7 +49,6 @@ if(statusArr.indexOf(24)!=-1){
 
 //     $http.post('database/searchData.php',{id:_id})
 //         .success(function(data) {
-//             // console.log(data);
 //             self.friend = data;
 //         });
 //     self.edit = function() {

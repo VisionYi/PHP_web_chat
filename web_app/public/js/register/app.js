@@ -11,7 +11,6 @@ registerApp.controller('RegisterCtrl', ['$filter', '$http', function($filter, $h
 
             $http.post('/api/Register/member', data)
                 .success(function(response) {
-                    console.log(response);
                     if (response.code) {
                         alert("註冊成功! 可進行登入");
                         window.location.href = '/login';

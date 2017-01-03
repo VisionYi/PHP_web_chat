@@ -1,5 +1,5 @@
 
-app.controller('SearchCtrl',['$route','dataFactory','$http',function($route,dataFactory,$http) {
+app.controller('SearchCtrl',['$route','dataFactory',function($route,dataFactory) {
     var self = this;
     document.title = 'TestDB查詢資料';
 
@@ -7,23 +7,13 @@ app.controller('SearchCtrl',['$route','dataFactory','$http',function($route,data
         self.caret = 'fa fa-caret-down';
         self.reverse = true;
         self.isload = true;
-        // dataFactory.getAllData('pdotest')
-        //     .success(function(data) {
-        //         self.isload = false;
-        //         self.friends = data;
-        //         self.number = data.length;
-        //     }).error(function(error) {
-        //         alert("資料庫載入失敗!\n" + error);
-        //     });
-        $http.get('/api/Get/pdotest' )
-            .success(function (data, status, header, config) {
+        dataFactory.getAllData('pdotest')
+            .success(function(data) {
                 self.isload = false;
                 self.friends = data;
                 self.number = data.length;
-                console.log(data);
-            })
-            .error(function (data, status, header, config) {
-                console.error(data);
+            }).error(function(error) {
+                alert("資料庫載入失敗!\n" + error);
             });
     };
 
@@ -75,7 +65,6 @@ app.controller('EditCtrl',['$routeParams','dataFactory','$location',function($ro
                 data.age = parseInt(data.age);
                 self.friend = data;
             }).error(function(err) {
-                console.log(err);
                 alert("資料庫載入失敗!\n" + err);
             });
     };
