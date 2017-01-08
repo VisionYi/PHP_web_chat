@@ -38,7 +38,7 @@ class Controller {
 
 		$this->_var_data = $var_data;
 		foreach ($var_data as $key => $value) {
-			$$key = $value;
+			${$key} = $value;
 		}
 
 		$this->_view = $view;
@@ -58,7 +58,7 @@ class Controller {
 	 */
 	public function get_view() {
 		foreach ($this->_var_data as $key => $value) {
-			$$key = $value;
+			${$key} = $value;
 		}
 		require_once ROOT_PATH . '/views/' . $this->_view;
 	}
