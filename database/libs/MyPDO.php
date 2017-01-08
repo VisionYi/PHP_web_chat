@@ -17,7 +17,7 @@ class MyPDO {
 		$dsn = "$this->dbms:host=$this->host;dbname=$this->dbName;port=$this->port;charset=$this->encode";
 		try {
 			$this->pdo = new PDO($dsn, $this->user, $this->pass);
-			// echo "PDO connection success !! <br><br>";
+
 		}catch(PDOException $e) {
 			$error_msg = "PDO connection failed !! <br>Error: ". $e->getMessage();
 			echo $error_msg;
@@ -111,6 +111,7 @@ class MyPDO {
 	public function dbBegin(){
 		$this->pdo->beginTransaction();
 	}
+
 	public function dbCommit(){
 		try {
 			$this->pdo->commit();
@@ -118,6 +119,7 @@ class MyPDO {
 			echo "<br># " . __FUNCTION__ . " error: " . $e->getMessage() . "[dbBegin]<br>";
 		}
 	}
+
 	public function dbRollback(){
 		try {
 			$this->pdo->rollback();

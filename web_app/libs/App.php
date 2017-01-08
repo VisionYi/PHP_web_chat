@@ -54,13 +54,12 @@ class App {
 
 	/**
 	 * 抓取網址上的Url,再以'/'間隔分成好幾個字放進array()裡 ,順便過濾多餘的'/'
+	 *
 	 * @return array() Url
 	 */
 	private function parseUrl() {
-		// $url = array();
 		if (isset($_GET['url'])) {
-			return $url = explode('/', filter_var(rtrim($_GET['url'], '/'), FILTER_SANITIZE_URL));
+			return explode('/', filter_var(rtrim($_GET['url'], '/'), FILTER_SANITIZE_URL));
 		}
 	}
 }
-?>

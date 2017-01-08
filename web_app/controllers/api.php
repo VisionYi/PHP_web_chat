@@ -18,7 +18,6 @@ class Api extends DB_Api {
         // $this->check_json_error_log();
         // $this->check_json_error_header(500, "Internal Server Error!!");
 
-        // ob_end_clean();
         exit();
     }
 
@@ -26,15 +25,15 @@ class Api extends DB_Api {
         if ($id == 'session_id') {
             require_once 'session/libs/Session.php';
             $Ses = new Session();
-            $id = $Ses->get_var('id');            // 已存在session['id']
+
+            // 已存在session['id']
+            $id = $Ses->get_var('id');
 
             $result = $this->DB->dbQuery("SELECT * FROM $table WHERE id=$id");
             $this->output($result[0]);
 
         } else if ($id == '') {
             $result = $this->DB->dbQuery("SELECT * FROM $table ");
-
-            // var_dump($result);
             $this->output($result);
         } else {
             $result = $this->DB->dbQuery("SELECT * FROM $table WHERE id=$id");
@@ -86,7 +85,6 @@ class Api extends DB_Api {
 	}
 
 	public function Log_in($table = '') {
-		sleep(1);
 		$data = $this->get_postData();
 
 		$sql = "SELECT * FROM $table WHERE email=:_email";
@@ -115,7 +113,6 @@ class Api extends DB_Api {
                            'password' => $result['password'] ]);
 		} else {
 			// 回傳錯誤的訊息
-			// header("HTTP/1.0 403 Forbidden") ;
 			$this->output(['code' => 0]);
 		}
 	}
@@ -133,7 +130,9 @@ class Api extends DB_Api {
 			$Ses->Create_variable(['id', 'nickname', 'profile_picture', 'identity'], $result);
 			$Ses->setLog_in();
 		}
-		header('location: ' . getenv("HTTP_REFERER")); //return the page
+
+        //return the page
+		header('location: ' . getenv("HTTP_REFERER"));
 	}
 
 	public function UploadFile($table = '', $id = '') {

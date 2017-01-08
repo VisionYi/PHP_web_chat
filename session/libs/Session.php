@@ -6,9 +6,10 @@ class Session {
 		if ($lifetime != 0) {
 			session_set_cookie_params($lifetime);
 			session_start();
-			// session_regenerate_id();
-		}else
+
+		}else{
 			session_start();
+		}
 	}
 
 	// 使用javascript href來轉跳
@@ -20,8 +21,8 @@ class Session {
 	public function cookies_verify_login($api_url = '') {
 		if(!$this->is_Login() && isset($_COOKIE['password'])){
 			$this->change_page($api_url);
-		}
-		else if($this->is_Login() && !isset($_COOKIE['login_time'])){
+
+		} else if($this->is_Login() && !isset($_COOKIE['login_time'])){
 			$this->Destroy();
 		}
 	}
@@ -31,13 +32,12 @@ class Session {
 		$_SESSION = array();
 	}
 
-	public function setLog_in() {$_SESSION['is_login'] = true;}
+	public function setLog_in() {
+		$_SESSION['is_login'] = true;
+	}
 
 	public function is_Login() {
-		if (!isset($_SESSION['is_login'])) {
-			$_SESSION['is_login'] = false;
-		}
-		return $_SESSION['is_login'];
+		return isset($_SESSION['is_login']) ? $_SESSION['is_login'] : false;
 	}
 
 	public function Require_Login_page(array $pages_url = [] ,$login_url=''){
@@ -73,10 +73,7 @@ class Session {
 	}
 
 	public function get_var($name = '') {
-		if (isset($_SESSION[$name]))
-			return $_SESSION[$name];
-		else
-			return '';
+		return (isset($_SESSION[$name])) ? $_SESSION[$name] : '';
 	}
 }
 ?>
