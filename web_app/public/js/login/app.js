@@ -19,7 +19,7 @@ LoginApp.controller('LoginCtrl', ['$http','$filter','$cookies', function($http,$
     self.log_in = function(data) {
         self.isload = true;
         if(data.remember){
-            SetCookies({'email':data.email} ,3*3600*24);
+            self.setCookies({'email':data.email} ,3*3600*24);
         }else{
             $cookies.remove('email');
         }
@@ -46,7 +46,7 @@ LoginApp.controller('LoginCtrl', ['$http','$filter','$cookies', function($http,$
     };
 
     // 設置cookies過期時間,由現在秒數+Seconds
-    var SetCookies = function(cookies_object ,time) {
+    self.setCookies = function(cookies_object ,time) {
         var expire = new Date();
         expire.setSeconds(expire.getSeconds() + time);
 
@@ -57,11 +57,3 @@ LoginApp.controller('LoginCtrl', ['$http','$filter','$cookies', function($http,$
         }
     };
 }]);
-
-// var LogoutApp = angular.module('LogoutApp', []);
-// LogoutApp.controller('LogoutCtrl', ['$http', function($http) {
-//     $http.get('/api/Log_out/member').success(function(response) {
-//         if (response.code) alert("登出成功!");
-//         window.history.back();
-//     });
-// }]);

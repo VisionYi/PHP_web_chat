@@ -1,4 +1,4 @@
-UserSettingApp.controller('ProfileCtrl', ['$http','$filter', function($http,$filter){
+UserSettingApp.controller('ProfileCtrl', ['$http', function($http){
     var self = this;
     self.init = function() {
         $http.get('/api/Get/member/session_id')
@@ -17,7 +17,9 @@ UserSettingApp.controller('ProfileCtrl', ['$http','$filter', function($http,$fil
         }
         $http.post('/api/Update/member', data)
             .success(function(response) {
-                if(response.code) alert('修改成功');
+                if(response.code) {
+                    alert('修改成功');
+                }
                 window.location.reload();
             }).error(function(err) {
                 alert("資料庫載入失敗!\n" + err);

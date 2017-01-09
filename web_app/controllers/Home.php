@@ -6,7 +6,7 @@ class Home extends Controller
     {
         $data['title'] = 'Index';
         $this->set_js(['/web_app/public/js/home/app.js',
-                       '/web_app/public/js/home/jquery_scrolls.js']);
+            '/web_app/public/js/home/jquery_scrolls.js']);
         $this->View('home/Index.html', '_shared/Layout.php', $data);
     }
 

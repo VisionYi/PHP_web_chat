@@ -26,7 +26,9 @@ app.controller('SearchCtrl',['$route','dataFactory',function($route,dataFactory)
     self.delete = function(person) {
         dataFactory.deleteData('pdotest',person.id)
             .success(function(response) {
-                if(response.code)  alert("編號:"+ person.id +" 刪除成功!! ");
+                if(response.code) {
+                    alert("編號:"+ person.id +" 刪除成功!! ");
+                }
 
                 // 搜尋你刪除的那一個,不用再重新整理
                 self.friends.splice(self.friends.indexOf(person) ,1);
