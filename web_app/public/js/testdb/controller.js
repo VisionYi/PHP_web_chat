@@ -13,7 +13,7 @@ app.controller('SearchCtrl',['$route','dataFactory',function($route,dataFactory)
                 self.friends = data;
                 self.number = data.length;
             }).error(function(error) {
-                // alert("資料庫載入失敗!\n" + error);
+                self.showDialog('錯誤', '資料庫載入失敗!');
             });
     };
 
@@ -27,16 +27,21 @@ app.controller('SearchCtrl',['$route','dataFactory',function($route,dataFactory)
         dataFactory.deleteData('pdotest',person.id)
             .success(function(response) {
                 if(response.code) {
-                    alert("編號:"+ person.id +" 刪除成功!! ");
+                    self.showDialog('提示', "編號:"+ person.id +" 刪除成功!!");
                 }
 
                 // 搜尋你刪除的那一個,不用再重新整理
                 self.friends.splice(self.friends.indexOf(person) ,1);
                 self.number--;
-                // $route.reload();  //reload route page
             }).error(function(error) {
-                alert("資料庫載入失敗!\n" + error);
+                self.showDialog('錯誤', '資料庫載入失敗!');
             });
+    };
+
+    self.showDialog = function(title, content) {
+        $('#dialog-title').text(title);
+        $('#dialog-content').text(content);
+        $('#dialog').modal('show');
     };
 }]);
 
@@ -48,12 +53,18 @@ app.controller('AddCtrl',['dataFactory','$location', function(dataFactory,$locat
         dataFactory.addData('pdotest',friend)
         .success(function(response) {
             if(response.code){
-                alert('新增一筆資料\n id: '+ response.lastId +'\n name: '+friend.name);
+                self.showDialog('提示', '新增一筆資料\n id: '+ response.lastId +'\n name: '+friend.name);
                 $location.path('/');
             }
         }).error(function(err) {
-            alert("資料庫載入失敗!\n" + err);
+            self.showDialog('錯誤', '資料庫載入失敗!');
         });
+    };
+
+    self.showDialog = function(title, content) {
+        $('#dialog-title').text(title);
+        $('#dialog-content').text(content);
+        $('#dialog').modal('show');
     };
 }]);
 
@@ -67,7 +78,7 @@ app.controller('EditCtrl',['$routeParams','dataFactory','$location',function($ro
                 data.age = parseInt(data.age);
                 self.friend = data;
             }).error(function(err) {
-                alert("資料庫載入失敗!\n" + err);
+                self.showDialog('錯誤', '資料庫載入失敗!');
             });
     };
 
@@ -75,11 +86,17 @@ app.controller('EditCtrl',['$routeParams','dataFactory','$location',function($ro
         dataFactory.updateData('pdotest',person)
         .success(function(response) {
             if(response.code){
-                alert('修改成功\n name:'+ person.name +'\n age:'+person.age +'\n skills:'+person.skills);
+                self.showDialog('提示', '修改成功\n name:'+ person.name +'\n age:'+person.age +'\n skills:'+person.skills);
                 $location.path('/');
             }
         }).error(function(err) {
-            alert("資料庫載入失敗!\n" + err);
+            self.showDialog('錯誤', '資料庫載入失敗!');
         });
+    };
+
+    self.showDialog = function(title, content) {
+        $('#dialog-title').text(title);
+        $('#dialog-content').text(content);
+        $('#dialog').modal('show');
     };
 }]);

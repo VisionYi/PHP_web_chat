@@ -7,7 +7,7 @@ UserSettingApp.controller('ProfileCtrl', ['$http', function($http){
                 self.member = data;
 
             }).error(function(err) {
-                alert("資料庫載入失敗!\n" + err);
+                self.showDialog('錯誤', '資料庫載入失敗!');
             });
     };
 
@@ -18,12 +18,18 @@ UserSettingApp.controller('ProfileCtrl', ['$http', function($http){
         $http.post('/api/Update/member', data)
             .success(function(response) {
                 if(response.code) {
-                    alert('修改成功');
+                    self.showDialog('提示', '修改成功!');
                 }
                 window.location.reload();
             }).error(function(err) {
-                alert("資料庫載入失敗!\n" + err);
+                self.showDialog('錯誤', '資料庫載入失敗!');
             });
+    };
+
+    self.showDialog = function(title, content) {
+        $('#dialog-title').text(title);
+        $('#dialog-content').text(content);
+        $('#dialog').modal('show');
     };
 }]);
 
@@ -54,12 +60,18 @@ UserSettingApp.controller('P_pictureCtrl', ['Upload', function(Upload){
             self.progress = parseInt(100.0 * evt.loaded / evt.total);
         }).success(function(response) {
             if (response.code) {
-                alert("頭貼設置成功!");
+                self.showDialog('提示', '頭貼設置成功!');
                 window.location.reload();
                 window.location.href = '/userSetting#/profile';
             }
         }).error(function(error) {
-            alert("資料庫載入失敗!\n" + error);
+            self.showDialog('錯誤', '資料庫載入失敗!');
         });
+    };
+
+    self.showDialog = function(title, content) {
+        $('#dialog-title').text(title);
+        $('#dialog-content').text(content);
+        $('#dialog').modal('show');
     };
 }]);

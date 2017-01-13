@@ -15,7 +15,6 @@ UserSettingApp.config(['$routeProvider',function($routeProvider) {
         }).otherwise({
             redirectTo: '/profile'
         });
-        // $locationProvider.html5Mode(true);
 }]);
 
 UserSettingApp.run(['$route', function($route)  {

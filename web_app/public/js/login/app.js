@@ -28,7 +28,7 @@ LoginApp.controller('LoginCtrl', ['$http','$filter','$cookies', function($http,$
         $http.post('/api/Log_in/member', data)
             .success(function(response) {
                 if (response.code) {
-                    alert("登入成功!\n歡迎 " + response.nickname + " 大人!!");
+                    self.showDialog('提示', "登入成功!\n歡迎 " + response.nickname + " 大人!!");
 
                     if(data.auto_login){
                         SetCookies({'login_time':data.last_datetime,'password':response.password},7*3600*24);
@@ -38,10 +38,10 @@ LoginApp.controller('LoginCtrl', ['$http','$filter','$cookies', function($http,$
                     window.history.back();
                 } else {
                     self.isload = false;
-                    alert("登入失敗!\n 密碼或帳號有錯喔!!");
+                    self.showDialog('錯誤', "登入失敗，密碼或帳號有錯喔!!");
                 }
             }).error(function(error) {
-                alert("資料庫載入失敗!\n" + error);
+                self.showDialog('錯誤', '資料庫載入失敗!');
             });
     };
 
@@ -55,5 +55,11 @@ LoginApp.controller('LoginCtrl', ['$http','$filter','$cookies', function($http,$
                 $cookies.put(key,cookies_object[key], {'expires': expire});
             }
         }
+    };
+
+    self.showDialog = function(title, content) {
+        $('#dialog-title').text(title);
+        $('#dialog-content').text(content);
+        $('#dialog').modal('show');
     };
 }]);

@@ -12,14 +12,20 @@ registerApp.controller('RegisterCtrl', ['$filter', '$http', function($filter, $h
             $http.post('/api/Register/member', data)
                 .success(function(response) {
                     if (response.code) {
-                        alert("註冊成功! 可進行登入");
+                        self.showDialog('提示', '註冊成功! 可進行登入');
                         window.location.href = '/login';
                     } else {
-                        alert("有錯誤: " + response.error);
+                        self.showDialog('錯誤', "有錯誤: " + response.error);
                     }
                 }).error(function(error) {
-                    alert("資料庫載入失敗!\n" + error);
+                    self.showDialog('錯誤', '資料庫載入失敗!');
                 });
         }
+    };
+
+    self.showDialog = function(title, content) {
+        $('#dialog-title').text(title);
+        $('#dialog-content').text(content);
+        $('#dialog').modal('show');
     };
 }]);

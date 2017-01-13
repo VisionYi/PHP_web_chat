@@ -2,7 +2,7 @@
 /**
  * 有錯誤就顯示 Error頁面
  */
-class _Error extends Controller
+class ErrorPage extends Controller
 {
     private $errorCode;
     private $_file;
@@ -15,12 +15,12 @@ class _Error extends Controller
      */
     public function page404($file, $code)
     {
-        if (ERROR_View != '') {
+        if (ERROR_VIEW != '') {
             $this->errorCode = $code;
             $this->_file = $file;
 
             $data['title'] = 'Error 404';
-            $this->View(ERROR_View, ERROR_Layout, $data);
+            $this->View(ERROR_VIEW, ERROR_LAYOUT, $data);
             exit();
         }
     }

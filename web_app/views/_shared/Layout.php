@@ -25,16 +25,16 @@
                 </div>
                 <div class="collapse navbar-collapse " id="navbar-1">
                     <ul class="nav navbar-nav">
-                        <li class="<?php echo ($title=='Index')? 'active':''; ?>">
+                        <li class="<?php echo ($title==='Index')? 'active':''; ?>">
                             <a href="/Home">首頁</a>
                         </li>
-                        <li class="<?php echo ($title=='Contact')? 'active':'';?>">
+                        <li class="<?php echo ($title==='Contact')? 'active':'';?>">
                             <a href="/Home/Contact">聊天討論區</a>
                         </li>
-                        <li class="<?php echo ($title=='About')? 'active':'';?>">
+                        <li class="<?php echo ($title==='About')? 'active':'';?>">
                             <a href="/Home/About">關於我們</a>
                         </li>
-                        <li class="<?php echo ($title=='TestDB')? 'active':'';?>">
+                        <li class="<?php echo ($title==='TestDB')? 'active':'';?>">
                             <a href="/TestDB">資料庫測試</a>
                         </li>
                     </ul>
@@ -46,6 +46,22 @@
         </nav>
 
         <?php $this->get_view() ?>
+
+        <!-- Small dialog -->
+        <div id="dialog" class="modal fade" tabindex="-1" role="dialog"  aria-hidden="true">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    <h4 id="dialog-title" class="modal-title"></h4>
+                    </div>
+                    <div id="dialog-content" class="modal-body">
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <footer id="contact">
             <div class="container" >

@@ -19,7 +19,7 @@ class App
     public function __construct()
     {
         $url = $this->parseUrl();
-        $error = new _Error();
+        $error = new ErrorPage();
 
         if (isset($url[0])) {
             if (file_exists(ROOT_PATH . '/controllers/' . $url[0] . '.php')) {

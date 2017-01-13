@@ -1,24 +1,28 @@
 <?php
 /* 需要 待修改成 try {} */
 
-class Api extends DB_Api
+class Api extends WebApi
 {
-
     private $DB;
+    private $SessionLib = 'session/libs/Session.php';
 
     public function __construct()
     {
         require_once 'database/libs/MyPDO.php';
         $this->DB = new MyPDO();
-        // $this->DB->debugDB_SQL = true;
 
-        ob_start();
+        // Debug: 檢測SQL的語法錯誤
+        // $this->DB->debugDB_SQL = true;
     }
 
     public function __destruct()
     {
         $this->DB->closeDB();
+
+        // Debug: 檢測印出的資訊是否符合JSON格式，使用JavaScript的console.error()
         // $this->check_json_error_log();
+
+        // Debug: 檢測印出的資訊是否符合JSON格式，使用HTTP header顯示錯誤代碼與資訊
         // $this->check_json_error_header(500, "Internal Server Error!!");
 
         exit();
@@ -27,7 +31,7 @@ class Api extends DB_Api
     public function Get($table = '', $id = '')
     {
         if ($id == 'session_id') {
-            require_once 'session/libs/Session.php';
+            require_once $this->SessionLib;
             $Ses = new Session();
 
             // 已存在session['id']
@@ -62,7 +66,7 @@ class Api extends DB_Api
         }
 
         if ($table == 'member') {
-            require_once 'session/libs/Session.php';
+            require_once $this->SessionLib;
             $Ses = new Session();
             $Ses->Create_variable(['nickname' => $data['nickname']]);
         }
@@ -76,6 +80,7 @@ class Api extends DB_Api
         $this->DB->dbDelete($table, "id={$id}");
         $this->output(['code' => 1]);
     }
+
     public function Register($table = '')
     {
         $data = $this->get_postData();
@@ -112,14 +117,16 @@ class Api extends DB_Api
             // 更新登入最後時間
             $this->DB->dbUpdate($table, ['last_datetime' => $data['last_datetime']], $where);
 
-            require_once 'session/libs/Session.php';
+            require_once $this->SessionLib;
             $Ses = new Session();
             $Ses->Create_variable(['id', 'nickname', 'profile_picture', 'identity'], $result);
             $Ses->setLog_in();
 
-            $this->output(['code' => 1,
-                'nickname'            => $result['nickname'],
-                'password'            => $result['password']]);
+            $this->output([
+                'code'     => 1,
+                'nickname' => $result['nickname'],
+                'password' => $result['password']
+            ]);
         } else {
             // 回傳錯誤的訊息
             $this->output(['code' => 0]);
@@ -132,7 +139,7 @@ class Api extends DB_Api
         $sql = "SELECT * FROM $table WHERE password=:password";
         $result = $this->DB->dbQuery($sql, [':password' => $password]);
 
-        require_once 'session/libs/Session.php';
+        require_once $this->SessionLib;
         $Ses = new Session();
 
         if (!empty($result)) {
@@ -153,7 +160,7 @@ class Api extends DB_Api
         $data = $_POST['data'][0];
 
         if ($id == 'session_id') {
-            require_once 'session/libs/Session.php';
+            require_once $this->SessionLib;
             $Ses = new Session();
             $id = $Ses->get_var('id');
         }

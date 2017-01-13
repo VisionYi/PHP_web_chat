@@ -1,6 +1,6 @@
 <?php
 
-class DB_Api {
+class WebApi {
 
     private $show_error = false;
     /**
