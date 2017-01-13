@@ -17,10 +17,12 @@ registerApp.controller('RegisterCtrl', ['$filter', '$http', function($filter, $h
                     } else {
                         self.showDialog('錯誤', "有錯誤: " + response.error);
                     }
-                }).error(function(error) {
-                    self.showDialog('錯誤', '資料庫載入失敗!');
-                });
+                }).error(self.showError);
         }
+    };
+
+    self.showError = function() {
+        self.showDialog('錯誤', '資料庫載入失敗!');
     };
 
     self.showDialog = function(title, content) {

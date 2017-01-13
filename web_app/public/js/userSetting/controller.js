@@ -5,10 +5,7 @@ UserSettingApp.controller('ProfileCtrl', ['$http', function($http){
             .success(function(data) {
                 data.password = '';
                 self.member = data;
-
-            }).error(function(err) {
-                self.showDialog('錯誤', '資料庫載入失敗!');
-            });
+            }).error(self.showError);
     };
 
     self.update = function(data) {
@@ -21,9 +18,11 @@ UserSettingApp.controller('ProfileCtrl', ['$http', function($http){
                     self.showDialog('提示', '修改成功!');
                 }
                 window.location.reload();
-            }).error(function(err) {
-                self.showDialog('錯誤', '資料庫載入失敗!');
-            });
+            }).error(self.showError);
+    };
+
+    self.showError = function() {
+        self.showDialog('錯誤', '資料庫載入失敗!');
     };
 
     self.showDialog = function(title, content) {
@@ -44,8 +43,9 @@ UserSettingApp.controller('P_pictureCtrl', ['Upload', function(Upload){
 
         if (_error[0]) {
             self.errorFile = _error[0];
-        } else
+        } else {
             self.errorFile = undefined;
+        }
     };
 
     self.submit = function(fileUrl, name) {
@@ -64,9 +64,11 @@ UserSettingApp.controller('P_pictureCtrl', ['Upload', function(Upload){
                 window.location.reload();
                 window.location.href = '/userSetting#/profile';
             }
-        }).error(function(error) {
-            self.showDialog('錯誤', '資料庫載入失敗!');
-        });
+        }).error(self.showError);
+    };
+
+    self.showError = function() {
+        self.showDialog('錯誤', '資料庫載入失敗!');
     };
 
     self.showDialog = function(title, content) {

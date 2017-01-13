@@ -12,9 +12,7 @@ app.controller('SearchCtrl',['$route','dataFactory',function($route,dataFactory)
                 self.isload = false;
                 self.friends = data;
                 self.number = data.length;
-            }).error(function(error) {
-                self.showDialog('錯誤', '資料庫載入失敗!');
-            });
+            }).error(self.showError);
     };
 
     self.orderBy = function(select) {
@@ -33,9 +31,11 @@ app.controller('SearchCtrl',['$route','dataFactory',function($route,dataFactory)
                 // 搜尋你刪除的那一個,不用再重新整理
                 self.friends.splice(self.friends.indexOf(person) ,1);
                 self.number--;
-            }).error(function(error) {
-                self.showDialog('錯誤', '資料庫載入失敗!');
-            });
+            }).error(self.showError);
+    };
+
+    self.showError = function() {
+        self.showDialog('錯誤', '資料庫載入失敗!');
     };
 
     self.showDialog = function(title, content) {
@@ -56,9 +56,11 @@ app.controller('AddCtrl',['dataFactory','$location', function(dataFactory,$locat
                 self.showDialog('提示', '新增一筆資料\n id: '+ response.lastId +'\n name: '+friend.name);
                 $location.path('/');
             }
-        }).error(function(err) {
-            self.showDialog('錯誤', '資料庫載入失敗!');
-        });
+        }).error(self.showError);
+    };
+
+    self.showError = function() {
+        self.showDialog('錯誤', '資料庫載入失敗!');
     };
 
     self.showDialog = function(title, content) {
@@ -89,9 +91,11 @@ app.controller('EditCtrl',['$routeParams','dataFactory','$location',function($ro
                 self.showDialog('提示', '修改成功\n name:'+ person.name +'\n age:'+person.age +'\n skills:'+person.skills);
                 $location.path('/');
             }
-        }).error(function(err) {
-            self.showDialog('錯誤', '資料庫載入失敗!');
-        });
+        }).error(self.showError);
+    };
+
+    self.showError = function() {
+        self.showDialog('錯誤', '資料庫載入失敗!');
     };
 
     self.showDialog = function(title, content) {

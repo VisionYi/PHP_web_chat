@@ -1,5 +1,4 @@
 <?php
-/* 需要 待修改成 try {} */
 
 class Api extends WebApi
 {

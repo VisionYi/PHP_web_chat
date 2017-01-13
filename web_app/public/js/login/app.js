@@ -40,9 +40,7 @@ LoginApp.controller('LoginCtrl', ['$http','$filter','$cookies', function($http,$
                     self.isload = false;
                     self.showDialog('錯誤', "登入失敗，密碼或帳號有錯喔!!");
                 }
-            }).error(function(error) {
-                self.showDialog('錯誤', '資料庫載入失敗!');
-            });
+            }).error(self.showError);
     };
 
     // 設置cookies過期時間,由現在秒數+Seconds
@@ -55,6 +53,10 @@ LoginApp.controller('LoginCtrl', ['$http','$filter','$cookies', function($http,$
                 $cookies.put(key,cookies_object[key], {'expires': expire});
             }
         }
+    };
+
+    self.showError = function() {
+        self.showDialog('錯誤', '資料庫載入失敗!');
     };
 
     self.showDialog = function(title, content) {
